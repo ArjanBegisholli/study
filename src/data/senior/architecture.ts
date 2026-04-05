@@ -252,7 +252,7 @@ export const seniorArchitecture: Test = {
       ],
       correctOptionId: 'b',
       definition: "Conway's Law states: \"Any organization that designs a system will produce a design whose structure is a copy of the organization's communication structure.\"",
-      explanation: 'If two teams work on a compiler, it will have two components because team boundaries become system boundaries. Microservices architectures align with this — \"inverse Conway maneuver\" suggests designing your organization (team structure, ownership) to match the desired system architecture. Teams with poor communication produce poorly integrated systems.',
+      explanation: "If two teams work on a compiler, it will have two components because team boundaries become system boundaries. Microservices architectures align with this — 'inverse Conway maneuver' suggests designing your organization (team structure, ownership) to match the desired system architecture. Teams with poor communication produce poorly integrated systems.",
       whyOthersAreWrong: [
         "Option A: Systems becoming more complex over time describes Lehman's laws of software evolution; Conway's Law is specifically about the relationship between org structure and system architecture.",
         "Option C: There is no such architectural law; Conway's Law makes an empirical observation about org structure's influence, not a value judgment about design quality over time.",

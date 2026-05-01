@@ -34,7 +34,7 @@ export function QuestionCard({
       <div className="question-header">
         <TopicBadge topic={question.topic} difficulty={question.difficulty} />
         {speechEnabled && (
-          <button className="speech-button" onClick={handleReadQuestion} title="Read question aloud">
+          <button className="speech-button" onClick={handleReadQuestion} title="Read question aloud" aria-label="Read question aloud">
             🔊
           </button>
         )}

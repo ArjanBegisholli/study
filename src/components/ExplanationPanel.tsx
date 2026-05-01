@@ -22,7 +22,7 @@ export function ExplanationPanel({ question, selectedOptionId, speechEnabled }: 
         <span className="explanation-result-icon">{isCorrect ? '🎉' : '📖'}</span>
         <strong>{isCorrect ? 'Correct!' : `Correct answer: ${correctOption?.text}`}</strong>
         {speechEnabled && (
-          <button className="speech-button" onClick={handleReadExplanation} title="Read aloud">
+          <button className="speech-button" onClick={handleReadExplanation} title="Read aloud" aria-label="Read aloud">
             🔊
           </button>
         )}

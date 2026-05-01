@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { roles } from '../data/index';
 
@@ -13,7 +14,7 @@ export function HomePage() {
 
       <div className="roles-grid">
         {roles.map(role => (
-          <div key={role.id} className="role-card" style={{ '--role-color': role.color } as React.CSSProperties}>
+          <div key={role.id} className="role-card" style={{ '--role-color': role.color } as CSSProperties}>
             <div className="role-card-header">
               <h2 className="role-title">{role.title}</h2>
               <span className="test-count">{role.tests.length} tests</span>

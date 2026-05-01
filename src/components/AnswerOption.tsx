@@ -20,7 +20,7 @@ export function AnswerOption({ id, text, isSelected, isCorrect, isAnswered, onSe
     <button
       className={className}
       onClick={() => !isAnswered && onSelect(id)}
-      disabled={isAnswered && !isSelected && !isCorrect}
+      disabled={isAnswered}
     >
       <span className="answer-letter">{id.toUpperCase()}</span>
       <span className="answer-text">{text}</span>

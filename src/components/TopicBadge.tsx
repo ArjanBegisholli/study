@@ -1,6 +1,8 @@
+import type { Difficulty } from '../types/quiz';
+
 interface Props {
   topic: string;
-  difficulty?: string;
+  difficulty?: Difficulty;
 }
 
 export function TopicBadge({ topic, difficulty }: Props) {

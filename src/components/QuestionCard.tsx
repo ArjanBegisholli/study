@@ -34,7 +34,7 @@ export function QuestionCard({
   speechEnabled,
 }: Props) {
   const { speak } = useSpeech();
-  const displayOptions = useMemo(() => shuffledOptions(question.options), [question.id, question.options]);
+  const displayOptions = useMemo(() => shuffledOptions(question.options), [question.options]);
 
   const handleReadQuestion = () => {
     speak(question.prompt);

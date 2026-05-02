@@ -42,8 +42,8 @@ export function ExplanationPanel({ question, selectedOptionId, speechEnabled }: 
         <div className="explanation-section">
           <h4>❌ Why other answers are wrong</h4>
           <ul>
-            {question.whyOthersAreWrong.map((w, i) => (
-              <li key={i}>{w.replace(/^Option [A-D]:\s*/, '')}</li>
+            {question.whyOthersAreWrong.map(w => (
+              <li key={w}>{w.replace(/^Option [A-D]:\s*/, '')}</li>
             ))}
           </ul>
         </div>

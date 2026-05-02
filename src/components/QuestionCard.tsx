@@ -1,8 +1,9 @@
+import { useMemo } from 'react';
 import { useSpeech } from '../hooks/useSpeech';
 import { AnswerOption } from './AnswerOption';
 import { ExplanationPanel } from './ExplanationPanel';
 import { TopicBadge } from './TopicBadge';
-import type { Question } from '../types/quiz';
+import type { AnswerOption as AnswerOptionType, Question } from '../types/quiz';
 
 interface Props {
   question: Question;
@@ -12,6 +13,15 @@ interface Props {
   onNext: () => void;
   isLast: boolean;
   speechEnabled: boolean;
+}
+
+function shuffledOptions(options: AnswerOptionType[]) {
+  const shuffled = [...options];
+  for (let i = shuffled.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
 }
 
 export function QuestionCard({
@@ -24,6 +34,7 @@ export function QuestionCard({
   speechEnabled,
 }: Props) {
   const { speak } = useSpeech();
+  const displayOptions = useMemo(() => shuffledOptions(question.options), [question.id, question.options]);
 
   const handleReadQuestion = () => {
     speak(question.prompt);
@@ -43,10 +54,11 @@ export function QuestionCard({
       <p className="question-prompt">{question.prompt}</p>
 
       <div className="answer-list">
-        {question.options.map(option => (
+        {displayOptions.map((option, index) => (
           <AnswerOption
             key={option.id}
             id={option.id}
+            displayLabel={String.fromCharCode(65 + index)}
             text={option.text}
             isSelected={selectedOptionId === option.id}
             isCorrect={option.id === question.correctOptionId}

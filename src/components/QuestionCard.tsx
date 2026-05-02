@@ -14,25 +14,28 @@ interface Props {
   speechEnabled: boolean;
 }
 
-function hashString(value: string) {
+function createQuestionSeed(questionId: string) {
   let hash = 0;
-  for (let i = 0; i < value.length; i += 1) {
-    hash = Math.imul(31, hash) + value.charCodeAt(i) | 0;
+  for (let i = 0; i < questionId.length; i += 1) {
+    hash = Math.imul(31, hash) + questionId.charCodeAt(i) | 0;
   }
   return hash >>> 0;
 }
 
 function seededRandom(seed: number) {
+  const multiplier = 1664525;
+  const increment = 1013904223;
+  const modulus = 4294967296;
   let state = seed || 1;
   return () => {
-    state = Math.imul(1664525, state) + 1013904223 | 0;
-    return (state >>> 0) / 4294967296;
+    state = Math.imul(multiplier, state) + increment | 0;
+    return (state >>> 0) / modulus;
   };
 }
 
 function shuffledOptions(options: AnswerOptionType[], seedText: string) {
   const shuffled = [...options];
-  const random = seededRandom(hashString(seedText));
+  const random = seededRandom(createQuestionSeed(seedText));
   for (let i = shuffled.length - 1; i > 0; i -= 1) {
     const j = Math.floor(random() * (i + 1));
     [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];

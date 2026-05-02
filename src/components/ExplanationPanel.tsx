@@ -1,6 +1,8 @@
 import { useSpeech } from '../hooks/useSpeech';
 import type { Question } from '../types/quiz';
 
+const optionLabelPrefix = /^Option [A-D]:\s*/;
+
 interface Props {
   question: Question;
   selectedOptionId: string;
@@ -43,7 +45,7 @@ export function ExplanationPanel({ question, selectedOptionId, speechEnabled }: 
           <h4>❌ Why other answers are wrong</h4>
           <ul>
             {question.whyOthersAreWrong.map((w, i) => (
-              <li key={`${question.id}-${i}`}>{w.replace(/^Option [A-D]:\s*/, '')}</li>
+              <li key={`${question.id}-${i}`}>{w.replace(optionLabelPrefix, '')}</li>
             ))}
           </ul>
         </div>

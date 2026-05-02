@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { useSpeech } from '../hooks/useSpeech';
 import { AnswerOption } from './AnswerOption';
 import { ExplanationPanel } from './ExplanationPanel';
@@ -51,7 +50,7 @@ export function QuestionCard({
   speechEnabled,
 }: Props) {
   const { speak } = useSpeech();
-  const displayOptions = useMemo(() => shuffledOptions(question.options, question.id), [question.id, question.options]);
+  const displayOptions = shuffledOptions(question.options, question.id);
 
   const handleReadQuestion = () => {
     speak(question.prompt);

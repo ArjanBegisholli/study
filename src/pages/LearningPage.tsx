@@ -163,7 +163,7 @@ export function LearningPage() {
           <p className="learning-kicker">Question-connected library</p>
           <h2>Definitions, explanations, and examples from every test</h2>
         </div>
-        <div className="learning-filters" role="tablist" aria-label="Filter learning notes by level">
+        <div className="learning-filters">
           <button className={activeRole === 'all' ? 'active' : ''} onClick={() => setActiveRole('all')}>All</button>
           {roles.map(role => (
             <button

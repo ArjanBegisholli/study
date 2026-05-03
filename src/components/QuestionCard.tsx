@@ -25,11 +25,11 @@ function createQuestionSeed(questionId: string) {
 function seededRandom(seed: number) {
   const multiplier = 1664525;
   const increment = 1013904223;
-  const modulus = 4294967296;
+  const maxUint32PlusOne = 4294967296;
   let state = seed || 1;
   return () => {
     state = (Math.imul(multiplier, state) + increment) >>> 0;
-    return state / modulus;
+    return state / maxUint32PlusOne;
   };
 }
 

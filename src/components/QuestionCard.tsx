@@ -17,7 +17,7 @@ interface Props {
 function createQuestionSeed(questionId: string) {
   let hash = 0;
   for (let i = 0; i < questionId.length; i += 1) {
-    hash = Math.imul(31, hash) + questionId.charCodeAt(i) | 0;
+    hash = Math.imul(31, hash) + questionId.charCodeAt(i);
   }
   return hash >>> 0;
 }
@@ -28,8 +28,8 @@ function seededRandom(seed: number) {
   const modulus = 4294967296;
   let state = seed || 1;
   return () => {
-    state = Math.imul(multiplier, state) + increment | 0;
-    return (state >>> 0) / modulus;
+    state = (Math.imul(multiplier, state) + increment) >>> 0;
+    return state / modulus;
   };
 }
 

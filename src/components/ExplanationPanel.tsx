@@ -3,6 +3,14 @@ import type { Question } from '../types/quiz';
 
 const optionLabelPrefix = /^Option [A-D]:\s*/;
 
+function createExplanationKey(questionId: string, explanation: string) {
+  let hash = 0;
+  for (let i = 0; i < explanation.length; i += 1) {
+    hash = (hash * 31 + explanation.charCodeAt(i)) % Number.MAX_SAFE_INTEGER;
+  }
+  return `${questionId}-${hash.toString(36)}`;
+}
+
 interface Props {
   question: Question;
   selectedOptionId: string;
@@ -44,8 +52,8 @@ export function ExplanationPanel({ question, selectedOptionId, speechEnabled }: 
         <div className="explanation-section">
           <h4>❌ Why other answers are wrong</h4>
           <ul>
-            {question.whyOthersAreWrong.map((w, i) => (
-              <li key={`${question.id}-${i}`}>{w.replace(optionLabelPrefix, '')}</li>
+            {question.whyOthersAreWrong.map(w => (
+              <li key={createExplanationKey(question.id, w)}>{w.replace(optionLabelPrefix, '')}</li>
             ))}
           </ul>
         </div>

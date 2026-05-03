@@ -10,6 +10,9 @@ export function HomePage() {
       <header className="home-header">
         <h1 className="app-title">📚 Dev Study Library</h1>
         <p className="app-subtitle">Strengthen your engineering knowledge. One question at a time.</p>
+        <button className="learning-tab-btn" onClick={() => navigate('/learning')}>
+          Learning Section →
+        </button>
       </header>
 
       <div className="roles-grid">

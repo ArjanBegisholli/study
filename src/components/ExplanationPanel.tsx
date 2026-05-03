@@ -1,5 +1,16 @@
+import { useMemo } from 'react';
 import { useSpeech } from '../hooks/useSpeech';
 import type { Question } from '../types/quiz';
+
+const optionLabelPrefix = /^Option [A-D]:\s*/;
+
+function createExplanationKey(questionId: string, explanation: string) {
+  let hash = 0;
+  for (let i = 0; i < explanation.length; i += 1) {
+    hash = Math.imul(31, hash) + explanation.charCodeAt(i);
+  }
+  return `${questionId}-${(hash >>> 0).toString(36)}`;
+}
 
 interface Props {
   question: Question;
@@ -11,6 +22,13 @@ export function ExplanationPanel({ question, selectedOptionId, speechEnabled }: 
   const { speak } = useSpeech();
   const isCorrect = selectedOptionId === question.correctOptionId;
   const correctOption = question.options.find(o => o.id === question.correctOptionId);
+  const wrongAnswerItems = useMemo(
+    () => question.whyOthersAreWrong?.map(w => ({
+      key: createExplanationKey(question.id, w),
+      text: w.replace(optionLabelPrefix, ''),
+    })) ?? [],
+    [question.id, question.whyOthersAreWrong],
+  );
 
   const handleReadExplanation = () => {
     speak(`${question.definition}. ${question.explanation}. ${question.example ?? ''}`);
@@ -38,12 +56,12 @@ export function ExplanationPanel({ question, selectedOptionId, speechEnabled }: 
         <p>{question.explanation}</p>
       </div>
 
-      {question.whyOthersAreWrong && question.whyOthersAreWrong.length > 0 && (
+      {wrongAnswerItems.length > 0 && (
         <div className="explanation-section">
           <h4>❌ Why other answers are wrong</h4>
           <ul>
-            {question.whyOthersAreWrong.map((w, i) => (
-              <li key={i}>{w}</li>
+            {wrongAnswerItems.map(item => (
+              <li key={item.key}>{item.text}</li>
             ))}
           </ul>
         </div>
